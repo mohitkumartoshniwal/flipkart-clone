@@ -186,7 +186,10 @@ const LoginDialog = ({ open, setOpen, setAccount }) => {
 
 
         let response = await authenticateSignup(signup);
-        if (!response) return;
+        if (!response) {
+            setSignupErrorMessage("User already exists");
+            return;
+        }
         handleClose();
         setAccount(signup.email);
         signupNotification()
