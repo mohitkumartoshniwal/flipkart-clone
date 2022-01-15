@@ -111,7 +111,7 @@ const LoginDialog = ({ open, setOpen, setAccount }) => {
     const [signupError, showSignupError] = useState(false);
     const [signupErrorMessage, setSignupErrorMessage] = useState('')
     let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    let phoneRegex=/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
+    let phoneRegex=/^([+]\d{2})?\d{10}$/
 
     const loginNotification = () => {
         toast.success("Login successful", {

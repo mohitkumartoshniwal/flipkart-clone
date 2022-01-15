@@ -1,11 +1,13 @@
 import { AppBar, Box, Drawer, IconButton, List, ListItem, Toolbar, Typography, withStyles } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { logoURL, subURL } from '../../data'
 import CustomButtons from './CustomButtons'
 import SearchBar from './SearchBar'
 import { Menu } from '@material-ui/icons';
+import LoginDialog from '../Login/LoginDialog'
+import { LoginContext } from '../../context/ContextProvider'
 
 const useStyle = makeStyles((theme) => ({
     header: {
@@ -37,7 +39,8 @@ const useStyle = makeStyles((theme) => ({
         marginLeft: '4px'
     },
     list: {
-        width: '250px'
+        width: '250px',
+        height: '100%'
     },
     menuButton: {
         display: 'none',
@@ -64,6 +67,8 @@ const Header = () => {
     const classes = useStyle();
 
     const [open, setOpen] = useState(false);
+    const [openDialog, setOpenDialog] = useState(false);
+    const { account, setAccount } = useContext(LoginContext);
 
     const handleClose = () => {
         setOpen(false);
@@ -77,7 +82,7 @@ const Header = () => {
         <Box className={classes.list} onClick={handleClose}>
             <List>
                 <ListItem button>
-                    <CustomButtons />
+                    <CustomButtons setOpenDialog={setOpenDialog} account={account} setAccount={setAccount}/>
                 </ListItem>
             </List>
         </Box>
@@ -107,8 +112,9 @@ const Header = () => {
 
                 </Link>
                 <SearchBar />
-                <span className={classes.customButtons}><CustomButtons /></span>
+                <span className={classes.customButtons}><CustomButtons setOpenDialog={setOpenDialog} account={account} setAccount={setAccount} /></span>
             </ToolBar>
+            <LoginDialog open={openDialog} setOpen={setOpenDialog} setAccount={setAccount} />
         </AppBar>
     )
 }

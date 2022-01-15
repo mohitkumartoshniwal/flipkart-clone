@@ -2,9 +2,8 @@ import express from 'express'
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { v4 as uuid } from 'uuid';
 import session from 'express-session'
-
+import { v4 as uuid } from 'uuid';
 import connection from './database/db.js';
 import defaultData from './default/default.js';
 import router from './router.js';
@@ -20,9 +19,9 @@ const mongoURI = process.env.mongoURI
 
 connection(mongoURI);
 
-if(process.env.NODE_ENV==='production'){
+// if(process.env.NODE_ENV==='production'){
     app.use(express.static('client/build'))
-}
+// }
 
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -53,15 +52,18 @@ app.listen(PORT, () => {
 })
 
 export let paytmMerchantkey = process.env.PAYTM_MERCHANT_KEY;
-export let paytmParams = {};
-paytmParams['MID'] = process.env.PAYTM_MID,
-paytmParams['WEBSITE'] = process.env.PAYTM_WEBSITE,
-paytmParams['CHANNEL_ID'] = process.env.PAYTM_CHANNEL_ID,
-paytmParams['INDUSTRY_TYPE_ID'] = process.env.PAYTM_INDUSTRY_TYPE_ID,
-paytmParams['ORDER_ID'] = uuid(),
-paytmParams['CUST_ID'] = process.env.PAYTM_CUST_ID,
-paytmParams['TXN_AMOUNT'] = '100',
-paytmParams['CALLBACK_URL'] = 'http://localhost:8000/callback'
-paytmParams['EMAIL'] = 'codeforinterview01@gmail.com'
-paytmParams['MOBILE_NO'] = '1234567852'
+export let paytmParams = {
+    'MID': process.env.PAYTM_MID,
+    'WEBSITE': process.env.PAYTM_WEBSITE,
+    'CHANNEL_ID': process.env.PAYTM_CHANNEL_ID,
+    'INDUSTRY_TYPE_ID': process.env.PAYTM_INDUSTRY_TYPE_ID,
+    'ORDER_ID': uuid(),
+    'CUST_ID': process.env.PAYTM_CUST_ID,
+    'TXN_AMOUNT': '100',
+    'CALLBACK_URL': `${process.env.BASE_URL}/callback`,
+    'EMAIL': "mohit@gmail.com",
+    'MOBILE_NO': '1234567852'
+};
+
+
 

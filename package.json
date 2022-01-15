@@ -9,7 +9,7 @@
     "start": "node server.js",
     "client-install": "cd client && npm install",
     "client-build": "cd client && npm run build",
-    "heroku-postbuild":"npm run client-install && npm run client-build"
+    "heroku-postbuild": "npm run client-install && npm run client-build"
   },
   "keywords": [],
   "author": "",
@@ -32,6 +32,7 @@
     "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "razorpay": "^2.8.0",
     "uuid": "^8.3.2"
   }
 }

@@ -28,7 +28,9 @@ const useStyle = makeStyles(theme => ({
                 alignItems: 'center',
                 display: 'flex',
                 flexDirection: 'column',
-                marginTop: 10
+                marginTop: 100,
+                marginLeft:15,
+                fontSize:25
             }      
         },
         [theme.breakpoints.down('sm')]: {
@@ -49,37 +51,36 @@ const useStyle = makeStyles(theme => ({
         [theme.breakpoints.down('sm')]: {
             display: 'none'
         }   
+    },
+    cartText:{
+        marginLeft:10,
+        [theme.breakpoints.down('sm')]: {
+            fontSize:25
+        } 
     }
 }));
 
 
 
-const CustomButtons = () => {
+const CustomButtons = ({account, setAccount, setOpenDialog}) => {
     const classes = useStyle();
-    const [open, setOpen] = useState(false);
-    const { account, setAccount } = useContext(LoginContext);
 
     const cartDetails = useSelector(state => state.cart);
     const { cartItems } = cartDetails;
-
-    const openDialog = () => {
-        setOpen(true);
-    }
 
     return (
         <Box className={classes.wrapper}>
             {
                 account ? <Profile account={account} setAccount={setAccount} /> :
-                    <Button className={classes.login} variant="contained" onClick={() => openDialog()}>Login</Button>
+                    <Button className={classes.login} variant="contained" onClick={() => setOpenDialog(true)}>Login</Button>
             }
             <Typography >More</Typography>
             <Link to='/cart' className={classes.container}>
                 <Badge  className={classes.cart} badgeContent={cartItems?.length} color="primary">
                     <ShoppingCart />
                 </Badge>
-                <Typography style={{ marginLeft: 10 }} >Cart</Typography>
+                <Typography className={classes.cartText} >Cart</Typography>
             </Link>
-            <LoginDialog open={open} setOpen={setOpen} setAccount={setAccount} />
         </Box>
     )
 }

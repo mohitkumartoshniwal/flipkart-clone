@@ -1,6 +1,5 @@
-"use strict";
 
-var crypto = require('crypto');
+import crypto from 'crypto'
 
 class PaytmChecksum {
 
@@ -91,4 +90,4 @@ class PaytmChecksum {
 	}
 }
 PaytmChecksum.iv = '@@@@&&&&####$$$$';
-module.exports = PaytmChecksum;
+export default PaytmChecksum

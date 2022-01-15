@@ -8,7 +8,7 @@ const Checkout = ({ account, handleNext }) => {
             <Button
                 variant="contained"
                 style={{ backgroundColor: '#fb641b', color: 'white', marginTop:12 }}
-                onClick={handleNext}
+                onClick={handleNext}          
             // className={classes.button}
             >
                 CONTINUE CHECKOUT

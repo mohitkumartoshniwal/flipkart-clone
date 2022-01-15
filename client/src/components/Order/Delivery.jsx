@@ -8,11 +8,20 @@ import clsx from 'clsx';
 
 const validationSchema = yup.object({
     name: yup.string().required('Name is required'),
-    mobile: yup.number().required('Mobile number is required'),
-    pincode: yup.number().required('Pincode is required'),
+    mobile: yup.string()
+        .required("This field is Required")
+        .matches(
+            /^([+]\d{2})?\d{10}$/,
+            "Phone number is not valid"
+        ),
+    pincode: yup.string()
+        .required("Pincode is required")
+        .matches(/^[0-9]+$/, "Must be only digits")
+        .min(6, 'Must be exactly 6 digits')
+        .max(6, 'Must be exactly 6 digits'),
     locality: yup.string().required('Locality is required'),
     address: yup.string().required('Address is required'),
-    residence: yup.string().required('It is required'),
+    residence: yup.string().required('This field is required'),
     state: yup.string().required('State is required'),
 });
 
@@ -20,10 +29,28 @@ const validationSchema = yup.object({
 const useStyles = makeStyles((theme) => ({
     flex: {
         display: 'flex',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        marginTop: '1rem',
+        [theme.breakpoints.down('sm')]: {
+            flexDirection: 'column'
+        }
+    },
+    addressType: {
+        width: '80%',
+        margin: '1rem auto 0 auto',
+        '& > *': {
+            marginTop: '1rem',
+        },
+        [theme.breakpoints.down('sm')]: {
+            width: '100%',
+            margin: '1rem 0 0 0',
+        }
     },
     address: {
-        width: '90%'
+        width: '80%',
+        [theme.breakpoints.down('md')]: {
+            width: '100%'
+        }
     }
 
 }))
@@ -35,7 +62,6 @@ const Delivery = ({ handleNext, form, setForm }) => {
         validationSchema: validationSchema,
         enableReinitialize: true,
         onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2));
             handleNext()
             setForm(values)
 
@@ -90,7 +116,7 @@ const Delivery = ({ handleNext, form, setForm }) => {
                 </Box>
                 <Box className={classes.flex}>
                     <TextField
-                        fullWidth
+                        className={classes.address}
                         id="address"
                         name="address"
                         label="Address (Area and Street)"
@@ -143,7 +169,7 @@ const Delivery = ({ handleNext, form, setForm }) => {
                         helperText={formik.touched.altMobile && formik.errors.altMobile}
                     />
                 </Box>
-                <FormControl  className={classes.flex} component="fieldset">
+                <FormControl className={clsx(classes.flex, classes.addressType)} component="fieldset">
                     <FormLabel component="legend">Address Type</FormLabel>
                     <RadioGroup
                         row
@@ -156,7 +182,7 @@ const Delivery = ({ handleNext, form, setForm }) => {
                     </RadioGroup>
                 </FormControl>
 
-                <Button style={{ backgroundColor: '#fb641b', color: 'white' }} variant="contained" fullWidth type="submit">
+                <Button style={{ backgroundColor: '#fb641b', color: 'white', marginTop: 20 }} variant="contained" type="submit">
                     DELIVER HERE
                 </Button>
             </form>

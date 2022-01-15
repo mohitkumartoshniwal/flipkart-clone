@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeFromCart } from '../../redux/actions/cartActions';
 import CartItem from '../Cart/CartItem'
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 
 const useStyle = makeStyles((theme) => ({
@@ -18,12 +19,17 @@ const OrderSummary = ({ handleNext, id }) => {
     const cartDetails = useSelector(state => state.cart);
     const { cartItems } = cartDetails;
     const dispatch = useDispatch();
+    const history = useNavigate()
 
-    const removeItemFromCart = (id) => {
-        dispatch(removeFromCart(id));
+
+    const removeItemFromCart = (itemId) => {
+        dispatch(removeFromCart(itemId));
         toast.info("Item removed from cart", {
             position: toast.POSITION.BOTTOM_CENTER
         });
+        if (id || cartItems.length === 0) {
+            history("/")
+        }
     }
     return (
         <>

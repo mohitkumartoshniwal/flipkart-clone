@@ -79,7 +79,7 @@ function getSteps() {
 
 const PlaceOrder = () => {
     const classes = useStyles();
-    const [activeStep, setActiveStep] = useState(2);
+    const [activeStep, setActiveStep] = useState(1);
     const steps = getSteps();
     const cartDetails = useSelector(state => state.cart);
     const { cartItems } = cartDetails;
@@ -130,7 +130,7 @@ const PlaceOrder = () => {
         <>
             {!account ? <Guest setAccount={setAccount} hint='Login to place order' /> :
                 <Grid container className={classes.component}>
-                    <Grid item lg={9} md={9} sm={12} xs={12} className={classes.leftComponent}>
+                    <Grid item lg={7} md={9} sm={12} xs={12} className={classes.leftComponent}>
                         <Stepper activeStep={activeStep} orientation="vertical" color="#2874f0">
                             {steps.map((label, index) => (
                                 <Step key={label}>
@@ -155,7 +155,7 @@ const PlaceOrder = () => {
                             </Paper>
                         )}
                     </Grid>
-                    <Grid item lg={3} md={3} sm={12} xs={12}>
+                    <Grid item lg={5} md={3} sm={12} xs={12}>
                         {/* <Box className={classes.total}> */}
                         <TotalView cartItems={cartItems} />
                         {/* </Box> */}

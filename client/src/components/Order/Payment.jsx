@@ -2,6 +2,7 @@ import { Button } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { payUsingPaytm } from '../../service/api';
 import { post } from '../../utils/paytm';
+import axios from 'axios';
 
 
 const Payment = ({ cartItems, account, id }) => {
@@ -10,7 +11,7 @@ const Payment = ({ cartItems, account, id }) => {
     useEffect(() => {
         const totalAmount = () => {
             if (id) {
-                const item=cartItems.find(item => item.id === id)
+                const item = cartItems.find(item => item.id === id)
                 setTotalCost(item.price - item.discount + 40)
             } else {
                 let price = 0, discount = 0;
@@ -18,7 +19,7 @@ const Payment = ({ cartItems, account, id }) => {
                     price += item.price.mrp * item.quantity
                     discount += (item.price.mrp - item.price.cost) * item.quantity
                 })
-                setTotalCost(price-discount+40)
+                setTotalCost(price - discount + 40)
 
             }
         }
@@ -36,7 +37,7 @@ const Payment = ({ cartItems, account, id }) => {
 
     return (
         <div>
-            <Button variant="contained" onClick={() => payNow()} style={{ marginTop: 12, backgroundColor: '#fb641b', color: 'white' }}>Pay using RazorPay</Button>
+            <Button variant="contained" onClick={() => payNow()} style={{ marginTop: 12, backgroundColor: '#fb641b', color: 'white' }}>Pay using Paytm</Button>
         </div>
     )
 }

@@ -8,7 +8,6 @@ import EmptyCart from './EmptyCart';
 import Guest from './Guest';
 import { useNavigate, useParams } from 'react-router-dom';
 import { LoginContext } from '../../context/ContextProvider.jsx';
-// import { payUsingPaytm } from '../../service/api';
 import { toast } from 'react-toastify';
 
 const useStyle = makeStyles(theme => ({
